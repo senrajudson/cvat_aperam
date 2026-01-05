@@ -1,0 +1,18 @@
+services:
+  cvat_backup:
+    build:
+      context: ./cvat_backup
+      dockerfile: Dockerfile.bkp
+    container_name: cvat_backup
+    environment:
+      CVAT_BASE_URL: "http://cvat-server:8080"  # o serviço existe no stack :contentReference[oaicite:2]{index=2}
+    env_file:
+      - ./cvat_backup/.env
+    volumes:
+      - ./cvat_backups:/backups
+    restart: unless-stopped
+    networks:
+      - cvat
+
+networks:
+  cvat: {}
